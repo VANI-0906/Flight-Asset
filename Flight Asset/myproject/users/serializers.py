@@ -60,3 +60,11 @@ class LoginSerializer(serializers.Serializer):
 
 
 
+class FlightQuerySerializer(serializers.Serializer):
+    place = serializers.CharField(required=False)
+    date = serializers.DateField(required=False)
+ 
+class FlightResponseSerializer(serializers.Serializer):
+    place = serializers.CharField()
+    numberOfDepartures = serializers.IntegerField()
+    numberOfArrivals = serializers.IntegerField()
