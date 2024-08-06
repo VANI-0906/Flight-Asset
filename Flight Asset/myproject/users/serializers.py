@@ -30,8 +30,8 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-    
-
+   
+ 
  
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,39 +57,41 @@ class LoginSerializer(serializers.Serializer):
             'expires_in': str(refresh_token.refresh_token_lifetime),
         }
         return data
-
-
-
+ 
+ 
 class FlightQuerySerializer(serializers.Serializer):
     access_token = serializers.CharField(required=True, max_length=255)
     place = serializers.CharField(required=False, max_length=3)
     date = serializers.DateField(required=False)
-
+ 
     def validate_place(self, value):
         if value and len(value) != 3:
             raise serializers.ValidationError("Place code must be exactly 3 characters.")
         return value
-
+ 
 class FlightResponseSerializer(serializers.Serializer):
     place = serializers.CharField(max_length=3)
     date = serializers.DateField()
     numberOfDepartures = serializers.IntegerField()
     numberOfArrivals = serializers.IntegerField()
-
-
-
-
+ 
+ 
 class FlightSummaryRequestSerializer(serializers.Serializer):
     access_token = serializers.CharField(required=True, max_length=255)
     flight = serializers.CharField(required=True, max_length=50)
-
+ 
     def validate_flight(self, value):
         if value != 'summary':
             raise serializers.ValidationError('Invalid flight type. Expected "summary".')
         return value
-
+ 
 class FlightResponseSerializer(serializers.Serializer):
     place = serializers.CharField(max_length=3)
     date = serializers.DateField()
     numberOfDepartures = serializers.IntegerField()
     numberOfArrivals = serializers.IntegerField()
+
+
+
+
+
